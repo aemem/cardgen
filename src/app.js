@@ -15,8 +15,8 @@ const baraja = [];
 const genBaraja = (arr1, arr2) => {
   for (let i = 0; i < arr1.length; i++) {
     for (let j = 0; j < arr2.length; j++) {
-      const numero = arr1[i];
-      const simbolo = arr2[j];
+      let numero = arr1[i];
+      let simbolo = arr2[j];
       baraja.push({ numero, simbolo });
     }
   }
