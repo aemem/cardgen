@@ -15,45 +15,40 @@ const baraja = [];
 const genBaraja = (arr1, arr2) => {
   for (let i = 0; i < arr1.length; i++) {
     for (let j = 0; j < arr2.length; j++) {
-      let numero = arr1[i];
-      let simbolo = arr2[j];
-      baraja.push({ numero, simbolo });
+      let combo = [arr1[i], arr2[j]];
+      baraja.push(combo);
     }
   }
   return baraja;
 };
 
-//generar carta
-const genCard = baraja => {
-  const random = Math.floor(Math.random() * baraja.length);
-  const genNum = baraja[random].numero;
-  const genSuit = baraja[random].simbolo;
-  document.querySelector(".cartaNum").innerHTML = genNum;
-  document.querySelector(".cartaTop").innerHTML = document.querySelector(
-    ".cartaBottom"
-  ).innerHTML = genSuit;
+//Barajar las cartas
+const shuffle = array => {
+  let currentIndex = array.length,
+    randomIndex;
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex]
+    ];
+  }
+  return array;
 };
 
-//boton random
-cartaRandom.addEventListener("click", randomClick);
-
-const randomClick = baraja => {
-  const random = Math.floor(Math.random() * baraja.length);
-  const genNum = baraja[random].numero;
-  const genSuit = baraja[random].simbolo;
-  document.querySelector(".cartaNum").innerHTML = genNum;
-  document.querySelector(".cartaTop").innerHTML = document.querySelector(
-    ".cartaBottom"
-  ).innerHTML = genSuit;
+const printCard = array => {
+  for (let i = 0; i < array.length; i++) {
+    document.querySelector(".cartaTop").innerHTML = document.querySelector(
+      ".cartaBottom"
+    ).innerHTML = array[i][1];
+    document.querySelector(".cartaNum").innerHTML = array[i][0];
+  }
 };
-
-//boton reset
-reset.addEventListener("click", resetBaraja);
-
-const resetBaraja = baraja => {};
 
 window.onload = function() {
   //write your code here
   genBaraja(num, suit);
-  genCard(baraja);
+  shuffle(baraja);
+  printCard(baraja);
 };
